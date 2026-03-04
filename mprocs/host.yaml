@@ -1,0 +1,14 @@
+procs:
+  Host:
+    shell: pnpm --filter host start
+    stop: SIGKILL
+  Dashboard:
+    shell: pnpm --filter dashboard start
+    stop: SIGKILL
+  Transfer:
+    shell: pnpm --filter transfer start
+    stop: SIGKILL
+  ScanPay:
+    shell: pnpm --filter scanpay start
+    stop: SIGKILL
+

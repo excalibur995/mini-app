@@ -1,0 +1,11 @@
+{
+  "market": "ID",
+  "journey": [
+    "TransferListScreen",
+    "BankListScreen",
+    "TransferAccountDetailScreen",
+    "TransferAmountScreen",
+    "TransferMethodScreen",
+    "TransferConfirmationScreen"
+  ]
+}

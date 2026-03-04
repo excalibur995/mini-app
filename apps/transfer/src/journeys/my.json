@@ -1,0 +1,11 @@
+{
+  "market": "MY",
+  "journey": [
+    "TransferListScreen",
+    "BankListScreen",
+    "TransferAccountDetailScreen",
+    "TransferAmountScreen",
+    "TransferMethodScreen",
+    "TransferConfirmationScreen"
+  ]
+}
