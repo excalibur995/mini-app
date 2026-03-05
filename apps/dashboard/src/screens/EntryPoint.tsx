@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { DashboardNavigatorParamList } from '../navigation/MainNavigator';
 import { commonStyles } from '../styles/common';
 import { dashboardStyles } from '../styles/dashboard';
@@ -13,6 +13,10 @@ const AppContent: React.FC<Props> = ({ navigation }) => {
     navigation.navigate('Transfer');
   };
 
+  const handleNavigateToCA = () => {
+    navigation.navigate('CA');
+  };
+
   const miniApps = [
     {
       id: 'transfer',
@@ -20,6 +24,13 @@ const AppContent: React.FC<Props> = ({ navigation }) => {
       description: 'Send money instantly to anyone, anywhere',
       icon: '💸',
       onPress: handleNavigateToTransfer,
+    },
+    {
+      id: 'ca',
+      name: 'CASA',
+      description: 'Manage your CASA accounts',
+      icon: '🏦',
+      onPress: handleNavigateToCA,
     },
     {
       id: 'scanpay',

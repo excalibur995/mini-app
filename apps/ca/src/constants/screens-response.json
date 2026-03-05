@@ -1,0 +1,80 @@
+{
+  "data": {
+    "id": 17,
+    "documentId": "gh9fj4jbkty4rqe3xsl3bbj3",
+    "createdAt": "2026-03-04T07:26:09.561Z",
+    "updatedAt": "2026-03-04T07:26:09.561Z",
+    "publishedAt": null,
+    "locale": "en",
+    "screenId": "ACCT_CA_ACCOUNT_PURPOSE",
+    "meta": {
+      "id": 17,
+      "title": "How will you use this account?",
+      "subtitle": "Open an account tailored to your needs",
+      "showBack": false,
+      "showClose": true,
+      "analytics": null,
+      "onBack": null
+    },
+    "header": [],
+    "body": [
+      {
+        "__component": "ui.radio-group",
+        "id": 7,
+        "label": null,
+        "options": [
+          {
+            "id": 13,
+            "key": "business",
+            "label": "Business",
+            "description": "For managing business finances and day-to-day operations; e.g., paying suppliers, payroll, tax payments or cash management."
+          },
+          {
+            "id": 14,
+            "key": "personal",
+            "label": "Personal",
+            "description": "For your everyday personal banking needs; e.g., salary deposits, daily spending, bill payments and transfers."
+          }
+        ],
+        "binding": {
+          "id": 11,
+          "path": "accountPurpose",
+          "scope": "journeyState",
+          "defaultValue": null,
+          "syncOnChange": false,
+          "syncDebounceMs": 1000,
+          "onClear": null
+        },
+        "validation": [
+          {
+            "id": 7,
+            "rule": "required",
+            "value": null,
+            "message": "Please select an account purpose to continue"
+          }
+        ],
+        "visibility": null
+      }
+    ],
+    "footer": [
+      {
+        "__component": "ui.button",
+        "id": 8,
+        "label": "Next",
+        "variant": "primary",
+        "action": {
+          "id": 10,
+          "key": "account-purpose-next",
+          "type": "navigate",
+          "payload": {
+            "direction": "next"
+          },
+          "analytics": null
+        },
+        "guardRules": [],
+        "visibility": null
+      }
+    ]
+  },
+  "meta": {}
+}

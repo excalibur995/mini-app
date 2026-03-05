@@ -1,9 +1,9 @@
+import * as Repack from '@callstack/repack';
+import { ReanimatedPlugin } from '@callstack/repack-plugin-reanimated';
+import rspack from '@rspack/core';
+import { getSharedDependencies } from 'mobile-sdk';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import * as Repack from '@callstack/repack';
-import rspack from '@rspack/core';
-import { ReanimatedPlugin } from '@callstack/repack-plugin-reanimated';
-import { getSharedDependencies } from 'mobile-sdk';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,6 +65,7 @@ export default env => {
         remotes: {
           dashboard: `dashboard@http://localhost:8101/${platform}/mf-manifest.json`,
           transfer: `transfer@http://localhost:8102/${platform}/mf-manifest.json`,
+          ca: `ca@http://localhost:8104/${platform}/mf-manifest.json`,
         },
         shared: getSharedDependencies({ eager: true }),
       }),

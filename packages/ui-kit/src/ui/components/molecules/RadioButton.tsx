@@ -1,29 +1,30 @@
 // libs/ui/src/components/molecules/RadioButton.tsx
-import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { Label } from '../atoms/Label';
-import { theme } from '../../../theme/theme';
+import { Label } from "../atoms/Label";
 
 export type RadioOption = {
   label: string;
   value: string | number;
+  description?: string;
+  icon?: React.ReactNode;
 };
 
 type RadioButtonProps = {
   options: RadioOption[];
   selectedValue?: string | number;
   onChange?: (value: string | number) => void;
-  direction?: 'row' | 'column';
-  labelSize?: 'small' | 'medium' | 'large'; // <-- allow all sizes
+  direction?: "row" | "column";
+  labelSize?: "small" | "medium" | "large"; // <-- allow all sizes
 };
 
 export const RadioButton: React.FC<RadioButtonProps> = ({
   options,
   selectedValue,
   onChange,
-  direction = 'column',
-  labelSize = 'medium',
+  direction = "column",
+  labelSize = "medium",
 }) => {
   const [internalValue, setInternalValue] = useState(selectedValue);
 
@@ -34,62 +35,84 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
 
   return (
     <View style={[styles.container, { flexDirection: direction }]}>
-      {options.map((option) => (
-        <TouchableOpacity
-          key={option.value}
-          style={styles.optionContainer}
-          activeOpacity={0.7}
-          onPress={() => handleSelect(option.value)}
-        >
-          {/* Circle */}
-          <View
-            style={[
-              styles.circle,
-              {
-                borderColor:
-                  internalValue === option.value
-                    ? theme.colors.primary
-                    : theme.colors.muted,
-              },
-            ]}
+      {options.map((option) => {
+        const isSelected = internalValue === option.value;
+        return (
+          <TouchableOpacity
+            key={option.value}
+            style={[styles.optionContainer, isSelected && styles.optionContainerSelected]}
+            activeOpacity={0.7}
+            onPress={() => handleSelect(option.value)}
           >
-            {internalValue === option.value && (
-              <View style={styles.innerCircle} />
-            )}
-          </View>
+            <View style={styles.cardContent}>
+              <View style={styles.headerRow}>
+                {option.icon && <View style={styles.iconContainer}>{option.icon}</View>}
+                <Label size={labelSize} weight={isSelected ? "bold" : "regular"}>
+                  {option.label}
+                </Label>
+              </View>
+              {!!option.description && (
+                <Label size="small" color="muted" style={styles.description}>
+                  {option.description}
+                </Label>
+              )}
+            </View>
 
-          {/* Label */}
-          <Label size={labelSize}>{option.label}</Label>
-        </TouchableOpacity>
-      ))}
+            <View style={[styles.circle, isSelected && styles.circleSelected]}>
+              {/* Optional inner dot if needed, but per design it's fully yellow with border */}
+            </View>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexWrap: 'wrap',
-    alignItems: 'center',
+    width: "100%",
   },
   optionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 4,
-    marginRight: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 6,
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    backgroundColor: "#FFFFFF",
+  },
+  optionContainerSelected: {
+    borderColor: "#FFC836",
+    backgroundColor: "#FFFBEB",
+  },
+  cardContent: {
+    flex: 1,
+    paddingRight: 16,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconContainer: {
+    marginRight: 8,
+  },
+  description: {
+    marginTop: 4,
+    lineHeight: 20,
   },
   circle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
-    marginRight: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  innerCircle: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: theme.colors.primary,
+  circleSelected: {
+    borderColor: "#000000",
+    backgroundColor: "#FFC836",
   },
 });

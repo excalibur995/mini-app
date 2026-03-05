@@ -1,10 +1,11 @@
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 import EntryPoint from '../screens/EntryPoint';
 
 export type DashboardNavigatorParamList = {
   Home: undefined;
   Transfer: undefined;
+  CA: undefined;
 };
 
 const Stack = createNativeStackNavigator<DashboardNavigatorParamList>();

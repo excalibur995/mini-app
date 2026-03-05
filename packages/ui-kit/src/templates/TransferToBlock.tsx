@@ -3,7 +3,7 @@ const ChevronLeft = (props: any) => null; // Placeholder
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../theme/theme";
-import { RecipientDetailsFormTransferTo } from "../ui/components/organisms/RecipientDetailsForm";
+import { RecipientDetailsForm } from "../ui/components/organisms/RecipientDetailsForm";
 import {
   ListItem,
   SearchableFilteredListTransferTo,
@@ -13,10 +13,7 @@ type TransferToBlockProps = {
   /** Array of bank/ewallet items for selection */
   items: ListItem[];
   /** Callback when the flow completes (after step 2) */
-  onComplete?: (data: {
-    selectedBank: ListItem;
-    accountNumber: string;
-  }) => void;
+  onComplete?: (data: { selectedBank: ListItem; accountNumber: string }) => void;
   /** Callback when back button is pressed on step 1 */
   onCancel?: () => void;
   /** Callback when bank is selected (Step 1) - navigates immediately without Next button */
@@ -108,21 +105,18 @@ export const TransferToBlock: React.FC<TransferToBlockProps> = ({
           {/* Header - same style as step 1 */}
           <View style={styles.header}>
             <Text style={styles.title}>Transfer</Text>
-            <TouchableOpacity
-              onPress={handleBackToStep1}
-              style={styles.closeButton}
-            >
+            <TouchableOpacity onPress={handleBackToStep1} style={styles.closeButton}>
               <ChevronLeft size={24} color={theme.colors.text} />
             </TouchableOpacity>
           </View>
 
           {/* Form Content */}
           <View style={styles.formContent}>
-            <RecipientDetailsFormTransferTo
+            <RecipientDetailsForm
               bankLabel="Transfer to"
               bankOptions={bankOptions}
               selectedBank={selectedBank?.name || ""}
-              onBankSelect={(bankName) => {
+              onBankSelect={(bankName: string) => {
                 const bank = items.find((item) => item.name === bankName);
                 if (bank) setSelectedBank(bank);
               }}

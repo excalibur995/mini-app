@@ -2,7 +2,7 @@ import React from 'react';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Placeholder from '../components/Placeholder';
 
-const TransferNavigator = React.lazy(() => import('transfer/Navigator' as any));
+const TransferNavigator = React.lazy(() => import('transfer/Navigator'));
 
 const TransferScreen = () => {
   return (

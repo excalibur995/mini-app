@@ -11,4 +11,6 @@ procs:
   ScanPay:
     shell: pnpm --filter scanpay start
     stop: SIGKILL
-
+  CA:
+    shell: pnpm --filter ca start
+    stop: SIGKILL

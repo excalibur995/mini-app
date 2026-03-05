@@ -3,7 +3,6 @@ import { StyleSheet, View, ViewStyle } from "react-native";
 import { theme } from "../../../theme/theme";
 import { Dropdown } from "../atoms/Dropdown";
 import { Input } from "../atoms/Input";
-import { ButtonField } from "../molecules/ButtonField";
 import { FormField } from "../molecules/FormField";
 
 type RecipientDetailsFormProps = {
@@ -98,7 +97,6 @@ export const RecipientDetailsForm: React.FC<RecipientDetailsFormProps> = ({
             value={accountNumber}
             onChangeText={onAccountNumberChange}
             placeholder="8888 1515 8888"
-            // @ts-expect-error - underlying TextInput accepts this prop; InputProps type doesn't include it
             keyboardType="numeric"
             radius={5}
             borderColor="#BDBDBD"

@@ -1,0 +1,103 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "documentId": "ua19l6sbe7ruxehm99227dcb",
+      "slug": "apply-ca",
+      "name": "Apply Current Account",
+      "description": "Multi-step journey to open a Current Account",
+      "initialState": {
+        "accountPurpose": null,
+        "npwpImage": null,
+        "npwpNumber": null,
+        "sourceAccountId": null,
+        "initialDepositAmount": null,
+        "termsAccepted": []
+      },
+      "analytics": null,
+      "createdAt": "2026-02-28T02:09:05.058Z",
+      "updatedAt": "2026-03-04T08:09:15.144Z",
+      "publishedAt": null,
+      "locale": "en",
+      "schemaVersion": "1.0",
+      "bundleVersion": "2026.03.01-001",
+      "productType": "ACCOUNTS",
+      "segment": "ETB",
+      "owner": "Accounts Business Team",
+      "idempotencyRequired": true,
+      "checkpointEnabled": false,
+      "maxRetry": 3,
+      "async": true,
+      "presentation": "card",
+      "journeyId": "ACCT_CA_APPLY",
+      "screens": [
+        {
+          "id": 17,
+          "documentId": "gh9fj4jbkty4rqe3xsl3bbj3",
+          "createdAt": "2026-03-04T07:26:09.561Z",
+          "updatedAt": "2026-03-04T07:26:09.561Z",
+          "publishedAt": null,
+          "locale": "en",
+          "screenId": "ACCT_CA_ACCOUNT_PURPOSE"
+        },
+        {
+          "id": 19,
+          "documentId": "rt355ru17z65nm3cwi9fkp4x",
+          "createdAt": "2026-03-04T07:45:19.891Z",
+          "updatedAt": "2026-03-04T07:45:19.891Z",
+          "publishedAt": null,
+          "locale": "en",
+          "screenId": "ACCT_CA_NPWP_CAPTURE"
+        },
+        {
+          "id": 21,
+          "documentId": "mt7l403u9y88jhx5l8xmhd4u",
+          "createdAt": "2026-03-04T07:51:18.099Z",
+          "updatedAt": "2026-03-04T07:51:18.099Z",
+          "publishedAt": null,
+          "locale": "en",
+          "screenId": "ACCT_CA_NPWP_REVIEW"
+        }
+      ],
+      "onExit": null,
+      "steps": [],
+      "localizations": []
+    },
+    {
+      "id": 7,
+      "documentId": "nsdewavs8nlvqnly7vbw47b7",
+      "slug": "test-journey",
+      "name": "ATesting",
+      "description": null,
+      "initialState": null,
+      "analytics": null,
+      "createdAt": "2026-03-02T06:42:50.419Z",
+      "updatedAt": "2026-03-02T06:55:47.019Z",
+      "publishedAt": null,
+      "locale": "en",
+      "schemaVersion": "1.0",
+      "bundleVersion": null,
+      "productType": "LOANS",
+      "segment": "ALL",
+      "owner": null,
+      "idempotencyRequired": false,
+      "checkpointEnabled": false,
+      "maxRetry": 3,
+      "async": false,
+      "presentation": null,
+      "journeyId": null,
+      "screens": [],
+      "onExit": null,
+      "steps": [],
+      "localizations": []
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 2
+    }
+  }
+}

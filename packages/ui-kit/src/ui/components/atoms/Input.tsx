@@ -1,12 +1,6 @@
 // src/atoms/Input.tsx
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
+import { KeyboardTypeOptions, StyleSheet, TextInput, TextStyle, View, ViewStyle } from "react-native";
 import { theme } from "../../../theme/theme";
 
 type SizeKey = "sm" | "md" | "lg" | "xl";
@@ -30,6 +24,7 @@ type InputProps = {
   textColor?: string;
   selectionColor?: string;
   size?: SizeKey; // ✅ shortform size
+  keyboardType?: KeyboardTypeOptions;
 };
 
 export const Input: React.FC<InputProps> = ({
@@ -43,12 +38,12 @@ export const Input: React.FC<InputProps> = ({
   borderColor = theme.colors.border,
   textColor = theme.colors.text,
   selectionColor = theme.colors.primary,
+  keyboardType = "default",
   size = "md",
 }) => {
   const [focused, setFocused] = useState(false);
 
-  const borderWidthValue =
-    borderWidth !== undefined ? borderWidth : focused ? 2 : 1;
+  const borderWidthValue = borderWidth !== undefined ? borderWidth : focused ? 2 : 1;
 
   return (
     <View
@@ -76,6 +71,7 @@ export const Input: React.FC<InputProps> = ({
           },
           inputStyle,
         ]}
+        keyboardType={keyboardType}
         selectionColor={selectionColor}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}

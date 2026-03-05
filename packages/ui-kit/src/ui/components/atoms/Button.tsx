@@ -2,19 +2,12 @@
 type LucideIcon = any; // Placeholder
 
 import React from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 
 import { theme } from "../../../theme/theme";
 
 type ButtonSize = "sm" | "md" | "lg";
+export type ButtonVariant = "primary" | "secondary";
 
 type ButtonProps = {
   title: string;
@@ -22,11 +15,12 @@ type ButtonProps = {
   iconLeft?: LucideIcon;
   iconRight?: LucideIcon;
   fullWidth?: boolean;
-  style?: StyleProp<ViewStyle>; // ✅ Add this
+  style?: StyleProp<ViewStyle>;
   textStyle?: TextStyle;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   backgroundColor?: string;
   textColor?: string;
-  size?: ButtonSize;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -37,14 +31,15 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   style,
   textStyle,
-  backgroundColor = theme.colors.primary,
-  textColor = theme.colors.text,
+  variant = "primary",
   size = "md",
+  backgroundColor,
+  textColor,
 }) => {
   const sizeStyles = {
     sm: {
       paddingVertical: theme.spacing.sm,
-      paddingHorizontal: theme.spacing.sm,
+      paddingHorizontal: theme.spacing.md,
       fontSize: theme.typography.fontSize.small,
       iconSize: 16,
     },
@@ -62,6 +57,26 @@ export const Button: React.FC<ButtonProps> = ({
     },
   }[size];
 
+  const variantStyles = {
+    primary: {
+      backgroundColor: backgroundColor || theme.colors.primary,
+      textColor: textColor || "#000000",
+      borderColor: "transparent",
+      borderWidth: 0,
+    },
+    secondary: {
+      backgroundColor: backgroundColor || "#FFFFFF",
+      textColor: textColor || "#000000",
+      borderColor: "#000000",
+      borderWidth: 1,
+    },
+  }[variant] || {
+    backgroundColor: backgroundColor || theme.colors.primary,
+    textColor: textColor || "#000000",
+    borderColor: "transparent",
+    borderWidth: 0,
+  };
+
   const IconLeft = iconLeft;
   const IconRight = iconRight;
 
@@ -69,41 +84,25 @@ export const Button: React.FC<ButtonProps> = ({
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor },
         {
+          backgroundColor: variantStyles.backgroundColor,
+          borderColor: variantStyles.borderColor,
+          borderWidth: variantStyles.borderWidth,
           paddingVertical: sizeStyles.paddingVertical,
           paddingHorizontal: sizeStyles.paddingHorizontal,
         },
         fullWidth && { alignSelf: "stretch" },
-        style, // ✅ now works
+        style,
       ]}
       onPress={onPress}
       activeOpacity={0.8}
     >
       <View style={styles.content}>
-        {IconLeft && (
-          <IconLeft
-            size={sizeStyles.iconSize}
-            color={textColor}
-            style={styles.iconLeft}
-          />
-        )}
-        <Text
-          style={[
-            styles.text,
-            { color: textColor, fontSize: sizeStyles.fontSize },
-            textStyle,
-          ]}
-        >
+        {IconLeft && <IconLeft size={sizeStyles.iconSize} color={variantStyles.textColor} style={styles.iconLeft} />}
+        <Text style={[styles.text, { color: variantStyles.textColor, fontSize: sizeStyles.fontSize }, textStyle]}>
           {title}
         </Text>
-        {IconRight && (
-          <IconRight
-            size={sizeStyles.iconSize}
-            color={textColor}
-            style={styles.iconRight}
-          />
-        )}
+        {IconRight && <IconRight size={sizeStyles.iconSize} color={variantStyles.textColor} style={styles.iconRight} />}
       </View>
     </TouchableOpacity>
   );
@@ -111,8 +110,6 @@ export const Button: React.FC<ButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.md,
     borderRadius: theme.radius.pill,
     justifyContent: "center",
   },
@@ -122,7 +119,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    fontSize: theme.typography.fontSize.medium,
     fontWeight: "700",
   },
   iconLeft: { marginRight: theme.spacing.sm },
