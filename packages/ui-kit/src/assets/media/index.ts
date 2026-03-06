@@ -6,12 +6,13 @@ import BellIcon from "./icons/bell.svg";
 import BottomNavigation from "./icons/BottomNavigation.svg";
 import CheckCircleIcon from "./icons/check-circle.svg";
 import ChevronLeft from "./icons/chevron_left.svg";
-import ChevronRight from "./icons/right_chev.svg";
+import Close from "./icons/close.svg";
 import EyeIcon from "./icons/eye.svg";
 import GridIcon from "./icons/grid.svg";
 import LogoutIcon from "./icons/logout.svg";
 import MoreOutlined from "./icons/more_outlined_icon.svg";
 import PhoneIcon from "./icons/phone.svg";
+import ChevronRight from "./icons/right_chev.svg";
 import ScanIcon from "./icons/scan_icon.svg";
 import SearchIcon from "./icons/search.svg";
 import SGIcon from "./icons/sg_icon.svg";
@@ -33,6 +34,7 @@ export {
   CheckCircleIcon,
   ChevronLeft,
   ChevronRight,
+  Close,
   EyeIcon,
   GridIcon,
   LogoutIcon,

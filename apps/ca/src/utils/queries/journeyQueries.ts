@@ -37,6 +37,8 @@ export const useJourney = (journeyId?: string) =>
     gcTime: 30 * 60 * 1000,
     refetchOnWindowFocus: true,
     refetchOnMount: true,
+    retry: 2,
+    retryDelay: 500,
   });
 
 export const useScreen = (documentId: string | null) =>

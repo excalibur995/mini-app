@@ -44,7 +44,7 @@ export const journeyMap: Record<
   keyof CaNavigatorParamList | ''
 > = {
   ACCT_CA_APPLY: 'CurrentAccountJourneyNavigator',
-  ACCT_CA_SAVINGS: '' as any, // TODO: add SavingsAccountJourneyNavigator
+  ACCT_CA_SAVINGS: '' as any,
   ACCT_CA_TERM: '',
   ACCT_CA_GIFT: '',
 };
@@ -57,6 +57,9 @@ const CasaEntryPoint: React.FC<Props> = ({ navigation }) => {
       <Header
         title="Apply"
         leftIconName="back"
+        containerStyle={{
+          backgroundColor: '#F9F8F4',
+        }}
         onLeftPress={() => {
           if (navigation.canGoBack()) navigation.goBack();
         }}
@@ -136,7 +139,7 @@ const CasaEntryPoint: React.FC<Props> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF', // Match design background
+    backgroundColor: '#F9F8F4', // Match design background
   },
   tabsContainer: {
     paddingVertical: theme.spacing?.md || 16,

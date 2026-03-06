@@ -20,8 +20,8 @@ target 'nextgen' do
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
-    :fabric_enabled => true,  # This enables new architecture
-    :hermes_enabled => true,    # Hermes is required for new architecture
+    :fabric_enabled => true,          # Enables Fabric (New Renderer)
+    :hermes_enabled => true,          # Hermes JS engine (required for New Arch)
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
@@ -33,5 +33,15 @@ target 'nextgen' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Fix Xcode 15+ build issues
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'RCT_NEW_ARCH_ENABLED=1']
+        config.build_settings['SWIFT_VERSION'] = '5.0'
+        # Fix for Xcode 15 DT_TOOLCHAIN_DIR
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      end
+    end
   end
 end

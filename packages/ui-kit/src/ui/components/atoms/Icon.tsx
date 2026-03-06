@@ -26,6 +26,7 @@ import {
   CheckCircleIcon,
   ChevronLeft,
   ChevronRight,
+  Close,
   MoreOutlined,
   SearchIcon,
   StarIcon,
@@ -75,15 +76,10 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   "check-circle": CheckCircleIcon,
   cancel: MoreOutlined,
   star: StarIcon,
-  x: X,
+  exit: Close,
 };
 
-export const Icon: React.FC<IconProps> = ({
-  icon,
-  size = 20,
-  color = theme.colors.text,
-  style,
-}) => {
+export const Icon: React.FC<IconProps> = ({ icon, size = 20, color = theme.colors.text, style }) => {
   if (!icon) {
     return null;
   }
@@ -94,15 +90,8 @@ export const Icon: React.FC<IconProps> = ({
   const iconSize = typeof size === "string" ? sizeMap[size] : size;
 
   // Check if it's a Lucide icon by checking the icon name
-  const lucideIcons = [
-    "keyboard-arrow-up",
-    "keyboard-arrow-down",
-    "favorite",
-    "favorite-outline",
-    "mic",
-  ];
-  const isLucideIcon =
-    lucideIcons.includes(icon) || IconComponent === HelpCircle;
+  const lucideIcons = ["keyboard-arrow-up", "keyboard-arrow-down", "favorite", "favorite-outline", "mic"];
+  const isLucideIcon = lucideIcons.includes(icon) || IconComponent === HelpCircle;
 
   if (isLucideIcon) {
     // Lucide icons use size and color props

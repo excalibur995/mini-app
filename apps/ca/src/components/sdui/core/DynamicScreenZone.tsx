@@ -11,52 +11,52 @@ type Props = NativeStackScreenProps<CaJourneyParamList, any> & {
   screenId: string;
 };
 
-type DynamicScreenContentProps = {
+export type DynamicScreenContentProps = {
   screenData: any;
   journeyId: string;
   navigate: (action: NavigateActionPayload) => void;
   screenId: string;
 };
 
-import { useNavigation } from '@react-navigation/native';
-import { useCallback } from 'react';
-import { useJourneyStore } from '../../../store/useJourneyStore';
+import { useDynamicScreenState } from '../../../hooks/useDynamicScreenState';
 import { NavigateActionPayload } from '../../../types/screen';
-import { ValidationProvider, useValidation } from './ValidationContext';
+import { Stepper } from '../widgets/Display/Stepper';
+import { ValidationProvider } from './ValidationContext';
 
 function DynamicScreenContent(props: DynamicScreenContentProps) {
-  const { screenData, journeyId, navigate, screenId } = props;
-  const { validateAll } = useValidation();
-  const { goBack } = useNavigation();
-  const { isFirst } = useJourneyNavigation(journeyId ?? '', screenId);
-  const clearSession = useJourneyStore(state => state.clearSession);
-
-  const handleNavigate = useCallback(
-    (action: NavigateActionPayload) => {
-      if (action.direction !== 'back') {
-        const isValid = validateAll();
-        if (!isValid) {
-          return;
-        }
-      }
-      navigate(action);
-    },
-    [validateAll, navigate],
-  );
+  const {
+    screenData,
+    journeyId,
+    navigate,
+    handleExit,
+    handleNavigate,
+    isFirst,
+    currentIndex,
+    totalSteps,
+    clearSession,
+    navigation,
+  } = useDynamicScreenState(props);
 
   return (
     <Screen style={styles.container}>
       <Header
+        iconColor="black"
+        containerStyle={{ backgroundColor: '#F9F8F4' }}
         title={screenData.meta.title}
+        rightIconName={screenData.meta.showClose && 'close'}
+        onRightPress={handleExit}
         leftIconName={screenData.meta.showBack && 'back'}
         onLeftPress={() => {
           if (screenData.meta.showBack && !isFirst)
             return navigate({ direction: 'back', navigation_type: 'push' });
           clearSession(journeyId);
-          return goBack();
+          return navigation.goBack();
         }}
         showBorder={false}
       />
+      <View style={styles.stepper}>
+        <Stepper currentStep={currentIndex + 1} totalSteps={totalSteps} />
+      </View>
       <ScrollView style={styles.body}>
         <View style={styles.header}>
           <DynamicZoneRenderer
@@ -117,7 +117,7 @@ export default function DynamicScreenZone({ route, screenId }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F9F8F4',
   },
   title: {
     fontSize: 24,
@@ -136,13 +136,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    paddingTop: 16,
-    paddingHorizontal: 8,
-    paddingBottom: 8,
+    padding: 8,
   },
   body: {
     flexGrow: 1,
-    padding: 16,
+    paddingHorizontal: 16,
   },
   footer: {
     padding: 16,
@@ -151,5 +149,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  stepper: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
   },
 });

@@ -3,8 +3,8 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 
 // Import existing atoms
-import { Icon, Label } from "../atoms";
 import { theme } from "../../../theme/theme";
+import { Icon, Label } from "../atoms";
 
 export interface HeaderProps {
   title: string;
@@ -32,26 +32,18 @@ export const Header: React.FC<HeaderProps> = ({
   variant = "var1",
   showBorder = true,
   rightIconCircled = false,
+  containerStyle,
 }) => {
   const renderRightIcon = () => {
     if (!rightIconName) {
       return <View style={styles.iconWrapper} />;
     }
 
-    const iconElement = (
-      <Icon
-        icon={rightIconName}
-        size={iconSize || 20}
-        color={iconColor || theme.colors.text}
-      />
-    );
+    const iconElement = <Icon icon={rightIconName} size={iconSize || 20} color={iconColor || theme.colors.text} />;
 
     if (rightIconCircled) {
       return (
-        <TouchableOpacity
-          onPress={onRightPress}
-          style={styles.circledIconWrapper}
-        >
+        <TouchableOpacity onPress={onRightPress} style={styles.circledIconWrapper}>
           {iconElement}
         </TouchableOpacity>
       );
@@ -66,14 +58,10 @@ export const Header: React.FC<HeaderProps> = ({
 
   if (variant === "var1") {
     return (
-      <View style={[styles.container, !showBorder && styles.noBorder]}>
+      <View style={[styles.container, containerStyle, !showBorder && styles.noBorder]}>
         {leftIconName ? (
           <TouchableOpacity onPress={onLeftPress} style={styles.iconWrapper}>
-            <Icon
-              icon={leftIconName}
-              size={iconSize || 24}
-              color={iconColor || theme.colors.text}
-            />
+            <Icon icon={leftIconName} size={iconSize || 24} color={iconColor || theme.colors.text} />
           </TouchableOpacity>
         ) : (
           <View style={styles.iconWrapper} />
@@ -90,15 +78,11 @@ export const Header: React.FC<HeaderProps> = ({
     );
   } else {
     return (
-      <View style={[styles.containervar2]}>
+      <View style={[styles.containervar2, containerStyle]}>
         {/* Left Icon (Back Button) */}
         {leftIconName ? (
           <TouchableOpacity onPress={onLeftPress} style={styles.iconWrapper}>
-            <Icon
-              icon={leftIconName}
-              size={iconSize || 24}
-              color={iconColor || theme.colors.text}
-            />
+            <Icon icon={leftIconName} size={iconSize || 24} color={iconColor || theme.colors.text} />
           </TouchableOpacity>
         ) : (
           <View style={styles.iconWrapper} />

@@ -3,6 +3,7 @@ import {
   StackActions,
   useNavigation,
 } from '@react-navigation/native';
+import { useCallback } from 'react';
 import { useJourneyStore } from '../store/useJourneyStore';
 import type { NavigateActionPayload } from '../types/screen';
 import { useJourney } from '../utils/queries/journeyQueries';
@@ -15,8 +16,21 @@ export const useJourneyNavigation = (
   const updateSession = useJourneyStore(state => state.updateSession);
   const clearSession = useJourneyStore(state => state.clearSession);
 
-  const { data: journey } = useJourney(journeyId); // cache hit
+  const restartJourney = useCallback(
+    (id: string, target: string) => {
+      clearSession(id);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: target, params: { journeyId: id } }],
+        }),
+      );
+    },
+    [clearSession, navigation],
+  );
 
+  const { data: journey } = useJourney(journeyId); // cache hit
+  const navigator = journey?.navigator || '';
   const currentIndex =
     journey?.screens.findIndex(s => s.screenId === currentScreenId) ?? -1;
 
@@ -28,14 +42,7 @@ export const useJourneyNavigation = (
     let nextIndex = currentIndex;
 
     if (action.navigation_type === 'reset' && 'target' in action) {
-      clearSession(journeyId);
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: action.target, params: { journeyId } }],
-        }),
-      );
-      return;
+      return restartJourney(journeyId, action.target);
     }
 
     switch (action.direction) {
@@ -77,7 +84,7 @@ export const useJourneyNavigation = (
   const isFirst = currentIndex === 0;
   const isLast = journey ? currentIndex === journey.screens.length - 1 : false;
   const currentScreen = journey?.screens[currentIndex] ?? null;
-
+  const totalSteps = journey?.screens.length ?? 0;
   return {
     navigate,
     goNext: () => navigate({ direction: 'next', navigation_type: 'push' }),
@@ -88,6 +95,9 @@ export const useJourneyNavigation = (
     currentIndex,
     isFirst,
     isLast,
+    totalSteps,
     journey,
+    restartJourney,
+    navigator,
   };
 };

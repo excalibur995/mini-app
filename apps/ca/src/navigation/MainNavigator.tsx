@@ -23,7 +23,7 @@ const MainNavigator = () => {
         initialRouteName="Home"
         screenOptions={{
           contentStyle: {
-            backgroundColor: '#FFFFFF',
+            backgroundColor: '#F9F8F4',
           },
         }}
       >
